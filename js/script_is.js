@@ -39,8 +39,16 @@ for (let i = 0; i < num; i += 1) {
 }
 
 // Asynchronous function to perform "Insertion Sort"
-async function InsertionSort(delay = 450) {
+async function InsertionSort(delay = 200) {
 let bars = document.querySelectorAll(".bar");
+
+const startTime = new Date();
+
+const stopwatchDisplay = document.getElementById("stopwatch");
+const interval = setInterval(() => {
+	const elapsedTime = ((new Date()) - startTime) / 1000; // in seconds
+	stopwatchDisplay.innerText = `Time: ${elapsedTime.toFixed(1)}s`;
+}, 100);
 
 // Provide lightgreen colour to 0th bar
 bars[0].style.backgroundColor = "#58FF58";
@@ -67,11 +75,7 @@ for (var i = 1; i < bars.length; i += 1) {
 	bars[i].style.backgroundColor = "darkblue";
 
 	// To pause the execution of code for 450 milliseconds
-	await new Promise((resolve) =>
-	setTimeout(() => {
-	resolve();
-}, 450)
-);
+
 
 	// For placing selected element at its correct position
 	while (j >= 0 && parseInt(bars[j].childNodes[0].innerHTML) > key) {
@@ -91,7 +95,7 @@ for (var i = 1; i < bars.length; i += 1) {
 	await new Promise((resolve) =>
 		setTimeout(() => {
 		resolve();
-	}, 500)
+	}, delay)
 	);
 
 	// Provide lightgreen color to the sorted part
@@ -104,32 +108,23 @@ for (var i = 1; i < bars.length; i += 1) {
 	bars[j + 1].style.height = height;
 	bars[j + 1].childNodes[0].innerHTML = key;
 
-	// To pause the execution of code for 600 milliseconds
-	await new Promise((resolve) =>
-	setTimeout(() => {
-		resolve();
-	}, 600)
-	);
-
 	// Provide light green color to the ith bar
 	bars[i].style.backgroundColor = "#58FF58";
 }
 
 barval.innerHTML="<h3>Sorted!!!</h3>";
 
+clearInterval(interval);
+
 // To enable the button
 // "Generate New Array" after final(sorted)
-document.getElementById("Button1")
-.disabled = false;
-document.getElementById("Button1")
-.style.backgroundColor = "#6f459e";
+document.getElementById("Button1").disabled = false;
+document.getElementById("Button1").style.backgroundColor = "#6f459e";
 
 // To enable the button
 // "Insertion Sort" after final(sorted)
-document.getElementById("Button2")
-.disabled = false;
-document.getElementById("Button2")
-.style.backgroundColor = "#6f459e";
+document.getElementById("Button2").disabled = false;
+document.getElementById("Button2").style.backgroundColor = "#6f459e";
 }
 
 // Call "generatebars()" function
@@ -145,16 +140,12 @@ window.location.reload();
 function disable()
 {
 // To disable the button "Generate New Array"
-document.getElementById("Button1")
-.disabled = true;
-document.getElementById("Button1")
-.style.backgroundColor = "#d8b6ff";
+document.getElementById("Button1").disabled = true;
+document.getElementById("Button1").style.backgroundColor = "#d8b6ff";
 
 // To disable the button "Insertion Sort"
-document.getElementById("Button2")
-.disabled = true;
-document.getElementById("Button2")
-.style.backgroundColor = "#d8b6ff";
+document.getElementById("Button2").disabled = true;
+document.getElementById("Button2").style.backgroundColor = "#d8b6ff";
 }
 //function to reset
 function reset() {

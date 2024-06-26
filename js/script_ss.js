@@ -37,8 +37,16 @@ function generatebars(num = 20) {
 }
 
 // asynchronous function to perform "Selection Sort"
-async function SelectionSort(delay = 300) {
+async function SelectionSort(delay = 200) {
   let bars = document.querySelectorAll(".bar");
+
+  const startTime = new Date();
+
+  const stopwatchDisplay = document.getElementById("stopwatch");
+  const interval = setInterval(() => {
+    const elapsedTime = ((new Date()) - startTime) / 1000; // in seconds
+    stopwatchDisplay.innerText = `Time: ${elapsedTime.toFixed(1)}s`;
+  }, 100);
   // Assign 0 to min_idx
   var min_idx = 0;
   for (var i = 0; i < bars.length; i += 1) {
@@ -55,7 +63,7 @@ async function SelectionSort(delay = 300) {
       await new Promise((resolve) =>
         setTimeout(() => {
           resolve();
-        }, 450)
+        }, delay)
       );
 
       // To store the integer value of jth bar to var1
@@ -86,11 +94,7 @@ async function SelectionSort(delay = 300) {
     bars[i].childNodes[0].innerText = temp2;
 
     // To pause the execution of code for 450 milliseconds
-    await new Promise((resolve) =>
-      setTimeout(() => {
-        resolve();
-      }, 450)
-    );
+
 
     // Provide skyblue color to the (min-idx)th bar
     bars[min_idx].style.backgroundColor = " #08D9D6";
@@ -98,7 +102,7 @@ async function SelectionSort(delay = 300) {
     // Provide lightgreen color to the ith bar
     bars[i].style.backgroundColor = "#58FF58";
   }
-
+  clearInterval(interval);
   // To enable the button "Generate New Array" after final(sorted)
   document.getElementById("Button1").disabled = false;
   document.getElementById("Button1").style.backgroundColor = "#6f459e";

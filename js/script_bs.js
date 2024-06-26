@@ -38,8 +38,17 @@ function generatebars(num = 20) {
 }
 
 // asynchronous function to perform "Bubble Sort"
-async function BubbleSort(delay = 300) {
+async function BubbleSort(delay = 200) {
   let bars = document.querySelectorAll(".bar"); //store in array
+
+
+  const startTime = new Date();
+
+  const stopwatchDisplay = document.getElementById("stopwatch");
+  const interval = setInterval(() => {
+    const elapsedTime = ((new Date()) - startTime) / 1000; // in seconds
+    stopwatchDisplay.innerText = `Time: ${elapsedTime.toFixed(1)}s`;
+  }, 100); // Update every 100 milliseconds
   // Assign 0 to min_idx
   // var min_idx = 0;
   for (var i = 0; i < bars.length - 1; i += 1) {
@@ -57,7 +66,7 @@ async function BubbleSort(delay = 300) {
       await new Promise((resolve) =>
         setTimeout(() => {
           resolve();
-        }, 450)
+        }, delay)
       );
 
       // To store the integer value of jth bar to var1
@@ -70,10 +79,13 @@ async function BubbleSort(delay = 300) {
       if (val1 > val2) {
         var temp1 = bars[j].style.height;
         var temp2 = bars[j].childNodes[0].innerText;
+
         bars[j].style.height = bars[j + 1].style.height;
         bars[j + 1].style.height = temp1;
+
         bars[j].childNodes[0].innerText = bars[j + 1].childNodes[0].innerText;
         bars[j + 1].childNodes[0].innerText = temp2;
+
         bars[j + 1].style.backgroundColor = " #08D9D6";
         bars[j].style.backgroundColor = " #08D9D6";
       } else {
@@ -85,8 +97,13 @@ async function BubbleSort(delay = 300) {
         bars[j + 1].style.backgroundColor = "#58FF58";
       }
     }
+
+
     bars[0].style.backgroundColor = "#58FF58";
   }
+
+
+  clearInterval(interval);
 
   // To enable the button "Generate New Array" after final(sorted)
   document.getElementById("Button1").disabled = false;
